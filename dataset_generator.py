@@ -4,10 +4,11 @@ from get_bounding_boxes import get_bounding_boxes as GetBoundingBoxes
 # from get_bounding_boxes_b import get_bounding_boxes as GetBoundingBoxes_b
 # from get_bounding_boxes import get_bounding_boxes as GetBoundingBoxes_c
 import fitz
+import os
 
-
-text_path = "datasetgen/texts/example.txt"
-pdf_output_path = "datasetgen/output"
+root_path = "./"
+text_path = os.path.join(root_path, "texts/example.txt")
+pdf_output_path = os.path.join(root_path, "output") 
 with open(text_path, 'r') as f:
     text = f.read()
 
