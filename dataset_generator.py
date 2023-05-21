@@ -1,5 +1,6 @@
 # general libraries.
 import cv2, fitz, enum
+import os
 # genalog libraries.
 from genalog.generation.document import DocumentGenerator
 from genalog.generation.content import CompositeContent, ContentType
@@ -18,9 +19,9 @@ class PageSize(enum.Enum):
 
 
 # define paths.
-text_path = "datasetgen/texts/example.txt"
-pdf_output_path = "datasetgen/output"
-absolute_path = "file:///home/amir/Documents/Parsa/genalog/genalog-extended/datasetgen/"
+text_path = "texts/example.txt"
+pdf_output_path = "output"
+absolute_path = "file://" + os.path.abspath(".") + "/"
 
 # define genalog generator.
 with open(text_path, 'r') as f:
@@ -28,17 +29,17 @@ with open(text_path, 'r') as f:
 paragraphs = text.split('\n\n')
 content_types = [ContentType.PARAGRAPH] * len(paragraphs)
 content = CompositeContent(paragraphs, content_types)
-default_generator = DocumentGenerator(template_path="./datasetgen/templates")
+default_generator = DocumentGenerator(template_path="./templates")
 doc_gen = default_generator.create_generator(content, ['letter.html.jinja'])
 
 # define style parameters.
 font_file = "BNazanin.ttf"
 font_family = font_file.split('.')[0]
-img_logo = "3.png"
-img_signature = "full_emza14.png"
+img_logo = "5.png"
+img_signature = "full_emza17.png"
 page_size = PageSize.A5
-letter_addressee_name = "جناب آقای مهندس پارسا رحیمی"
-letter_addressee_title = "رئیس محترم شرکت ذره‌بین"
+letter_addressee_name = "جناب آقای مهندس [نام شخص]"
+letter_addressee_title = "رئیس محترم شرکت [نام شرکت]"
 new_style_combinations = {
     "hyphenate": [False],
     "font_size": ["11px"],
@@ -115,7 +116,9 @@ doc = fitz.open(pdf_name)
 for index, page in enumerate(doc):
     for position in positions[index]:
         # For every page, draw a rectangle on coordinates
-        page.draw_rect([min(position[0], position[2]),  min(position[1], position[3]), max(position[0], position[2]), max(position[1], position[3])],  color = (0, 1, 0), width = 2)
+        page.draw_rect([min(position[0], position[2]),  min(position[1], position[3]), 
+                        max(position[0], position[2]), max(position[1], position[3])],  
+                        color = (0, 1, 0), width = 2)
 
 # Save pdf
 doc.save(file_name + "_bbox" + ".pdf")
