@@ -35,8 +35,8 @@ doc_gen = default_generator.create_generator(content, ['letter.html.jinja'])
 # define style parameters.
 font_file = "BNazanin.ttf"
 font_family = font_file.split('.')[0]
-img_logo = "5.png"
-img_signature = "full_emza17.png"
+img_logo = "4.png"
+img_signature = "full_emza11.jpg"
 page_size = PageSize.A5
 letter_addressee_name = "جناب آقای مهندس [نام شخص]"
 letter_addressee_title = "رئیس محترم شرکت [نام شرکت]"
